@@ -1,0 +1,5 @@
+node_modules
+logs/reqLog.txt
+.env
+functions/config/serviceAccountKey.json
+.vscode

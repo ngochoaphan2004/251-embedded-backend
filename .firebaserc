@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "nhung-btl",
+    "btl-he-thong-nhung": "btl-he-thong-nhung"
+  },
+  "targets": {},
+  "etags": {}
+}
