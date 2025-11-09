@@ -1,25 +1,42 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "main": "functions/index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm-run-all --parallel listen serve",
+    "listen": "node listener.js",
+    "lint": "cd functions && eslint .",
+    "serve": "cd functions && firebase emulators:start --only functions",
+    "custom": "cd functions && firebase emulators:start --only functions,database",
+    "all": "cd functions && firebase emulators:start",
+    "shell": "cd functions && firebase functions:shell",
+    "firestart": "cd functions && npm run shell",
+    "deploy": "cd functions && firebase deploy --only functions",
+    "logs": "cd functions && firebase functions:log"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "engines": {
+    "node": "22"
+  },
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.51.0",
     "axios": "^1.13.2",
     "body-parser": "^2.2.0",
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.6.0",
     "JSON": "^1.0.0",
     "jsonwebtoken": "^9.0.2",
     "moment": "^2.30.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0",
+    "npm-run-all": "^4.1.5"
   }
 }
