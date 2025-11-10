@@ -19,7 +19,10 @@
  *         schema:
  *           type: string
  *           example: "temperature,humidity"
- *         description: "Các field cần lấy, phân tách bằng dấu phẩy. Nếu bỏ trống sẽ trả về toàn bộ dữ liệu. Bao gồm các thuộc tính :temperature, humidity, ledState, pumpState, rainfall, soilMoisture, temperature, waterLevel" 
+ *         description: >
+ *           Các field cần lấy, phân tách bằng dấu phẩy.  
+ *           Nếu bỏ trống sẽ trả về toàn bộ dữ liệu.  
+ *           Bao gồm các thuộc tính: temperature, humidity, ledState, pumpState, rainfall, soilMoisture, waterLevel.
  *     responses:
  *       200:
  *         description: Lấy dữ liệu cảm biến thành công
@@ -61,7 +64,7 @@
  * @swagger
  * /api/data/history:
  *   get:
- *     summary: Lấy lịch sử dữ liệu cảm biến
+ *     summary: Lấy lịch sử dữ liệu cảm biến (hỗ trợ lọc theo thời gian)
  *     tags: [Telemetry]
  *     security:
  *       - bearerAuth: []
@@ -84,7 +87,25 @@
  *           type: string
  *           enum: [newest, oldest]
  *           example: newest
- *         description: Cách sắp xếp dữ liệu theo thời gian
+ *         description: Cách sắp xếp dữ liệu theo thời gian (mới nhất hoặc cũ nhất)
+ *       - in: query
+ *         name: from
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *           example: "2025-11-01T00:00:00Z"
+ *         description: >
+ *           Thời gian bắt đầu lọc dữ liệu (ISO 8601).  
+ *           Nếu chỉ có `from`, hệ thống sẽ lấy tất cả dữ liệu **từ thời điểm này trở về sau**.
+ *       - in: query
+ *         name: to
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *           example: "2025-11-10T23:59:59Z"
+ *         description: >
+ *           Thời gian kết thúc lọc dữ liệu (ISO 8601).  
+ *           Nếu chỉ có `to`, hệ thống sẽ lấy tất cả dữ liệu **đến thời điểm này trở về trước**.
  *     responses:
  *       200:
  *         description: Lấy lịch sử dữ liệu thành công
@@ -110,15 +131,25 @@
  *                       humidity:
  *                         type: number
  *                         example: 82
- *                       timestamp:
+ *                       soilMoisture:
  *                         type: number
- *                         example: 1762506684597
+ *                         example: 45
+ *                       waterLevel:
+ *                         type: number
+ *                         example: 18
+ *                       rainfall:
+ *                         type: number
+ *                         example: 12
  *                       dateTime:
  *                         type: string
  *                         example: "2025-11-08 20:00:00.000"
+ *                       timestamp:
+ *                         type: number
+ *                         example: 1762506684597
  *       400:
- *         description: Thiếu tham số bắt buộc
+ *         description: Thiếu tham số bắt buộc hoặc định dạng thời gian không hợp lệ
+ *       403:
+ *         description: Truy cập bị từ chối (token không hợp lệ hoặc hết hạn)
  *       500:
  *         description: Lỗi hệ thống
  */
-

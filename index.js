@@ -7,7 +7,6 @@ const EventEmitter = require('events');
 const { swaggerOptions, swaggerSpec } = require("./config/swagger")
 // Config
 const logEvents = require('./logEvents');
-require('dotenv').config();
 // Controller
 const telemetry = require("./controller/telemetry")
 const login = require("./controller/login")

@@ -1,4 +1,3 @@
-require('dotenv').config();
 const { db, firestore } = require('./functions/config/firebase');
 
 console.log('✅ SmartFarm Realtime Listener Started');
@@ -9,7 +8,7 @@ db.ref('sensor_data').on('value', async (snapshot) => {
   const data = snapshot.val();
   if (!data) return;
 
-  if (data.timestamp === lastTimestamp) return;
+  if (data.timestamp <= lastTimestamp) return;
   lastTimestamp = data.timestamp;
 
   try {

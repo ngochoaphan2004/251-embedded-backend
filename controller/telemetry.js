@@ -61,18 +61,30 @@ const telemetry = (app) => {
     // sortBy = {"newest", "oldest"}
     app.get('/api/data/history', authenticateToken, async (req, res) => {
         try {
-            const { pageNum, pageSize, sortBy } = req.query
+            const { pageNum, pageSize, sortBy, from, to } = req.query
 
-            const history_collection = firestore.collection("history_sensor_data")
-            
-            if (sortBy)
-                history_collection.orderBy("dateTime", sortBy.trim() == "oldest" ? "asc" : "desc")
-            
+            let history_collection = firestore.collection("history_sensor_data")
+
+            if(sortBy)
+                history_collection = history_collection.orderBy("dateTime", sortBy.trim() == "oldest" ? "asc" : "desc")
+            else
+                history_collection = history_collection.orderBy("dateTime", "desc")
+
+
+            if (from && to) {
+                history_collection = history_collection.where("dateTime", ">=", new Date(from))
+                    .where("dateTime", "<=", new Date(to));
+            } else if (from && !to) {
+                history_collection = history_collection.where("dateTime", ">=", new Date(from));
+            } else if (!from && to) {
+                history_collection = history_collection.where("dateTime", "<=", new Date(to));
+            }
+
             const collection_firestore = await history_collection.get()
-            
+
             let history_data = collection_firestore.docs.map(row => {
                 const data = row.data()
-                const Date = moment.unix(data.timestamp).add(data.dateTime._nanoseconds / 1000000, 'milliseconds');
+                const Date = moment(data.timestamp).add(data.dateTime._nanoseconds / 1000000, 'milliseconds');
                 return ({
                     id: row.id,
                     ...data,

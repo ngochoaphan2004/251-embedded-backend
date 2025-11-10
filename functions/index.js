@@ -12,7 +12,6 @@ const {onRequest} = require("firebase-functions/https");
 const functions = require('firebase-functions');
 const logger = require("firebase-functions/logger");
 const path = require('path'); 
-require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const app = require("../index")
 
 setGlobalOptions({ maxInstances: 10 });
