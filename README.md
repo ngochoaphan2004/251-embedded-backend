@@ -21,23 +21,16 @@ git clone https://github.com/ngochoaphan2004/251-embedded-backend.git
 cd 251-embedded-backend
 ```
 
-### 2. Tạo file môi trường
-Tạo file .env tại thư mục gốc (root folder):
-
-```bash
-SECRET_KEY=your_secret_key
-```
-
-### 3. Thêm firebase SDK
+### 2. Thêm firebase SDK
 Thêm file serviceAccountKey.json vào đường dẫn: /functions/config/serviceAccountKey.json
 
 
-### 4. Tải các module
+### 3. Tải các module
 ```bash
 npm install npm 
 ```
 
-### 5. Chạy dự án
+### 4. Chạy dự án
 ```bash
 run start
 ```

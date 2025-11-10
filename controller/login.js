@@ -19,7 +19,7 @@ const login = (app) => {
             return errorResponse(res, 'Tên người dùng hoặc mật khẩu không đúng', 400)
         }
 
-        const token = jwt.sign({ username: user.username }, process.env.SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ username: user.username }, "your_secret_key", { expiresIn: '1h' });
         return successResponse(res, token, 'Đăng  nhập thành công', 200)
     });
 }
