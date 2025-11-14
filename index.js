@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+var cors = require('cors')
 const swaggerUi = require('swagger-ui-express');
 const EventEmitter = require('events');
 // Swagger
@@ -22,6 +23,8 @@ const PORT = process.env.PORT || 3500;
 
 // Middleware to parse JSON body 
 app.use(bodyParser.json());
+app.use(cors())
+
 // Middleware storage log
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.url}`);
