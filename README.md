@@ -16,10 +16,6 @@ Backend của hệ thống **SmartFarm** sử dụng **Firebase Functions + Expr
 ## ⚙️ Installation & Setup
 
 ### 1. Clone project
-```bash
-git clone https://github.com/ngochoaphan2004/251-embedded-backend.git
-cd 251-embedded-backend
-```
 
 ### 2. Thêm firebase SDK
 Thêm file serviceAccountKey.json vào đường dẫn: /functions/config/serviceAccountKey.json
@@ -27,7 +23,7 @@ Thêm file serviceAccountKey.json vào đường dẫn: /functions/config/servic
 
 ### 3. Tải các module
 ```bash
-npm install npm 
+npm install 
 ```
 
 ### 4. Chạy dự án
