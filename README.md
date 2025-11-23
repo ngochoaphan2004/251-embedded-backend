@@ -1,7 +1,7 @@
-# 🌿 SmartFarm Backend
+# 🌿 Embedded Backend
 
-Backend của hệ thống **SmartFarm** sử dụng **Firebase Functions + Express + Swagger UI**  
-để quản lý dữ liệu cảm biến và giám sát nông trại thông minh.
+Backend của hệ thống **nhúng** sử dụng **Firebase Functions + Express + Swagger UI**
+để quản lý dữ liệu cảm biến và giám sát hệ thống nhúng.
 
 ---
 
@@ -18,7 +18,7 @@ Backend của hệ thống **SmartFarm** sử dụng **Firebase Functions + Expr
 ### 1. Clone project
 
 ### 2. Thêm firebase SDK
-Thêm file serviceAccountKey.json vào đường dẫn: /functions/config/serviceAccountKey.json
+Thêm file serviceAccountKey.json vào đường dẫn: /firebase/serviceAccountKey.json
 
 
 ### 3. Tải các module
