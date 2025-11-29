@@ -95,7 +95,7 @@
  *           format: date-time
  *           example: "2025-11-01T00:00:00Z"
  *         description: >
- *           Thời gian bắt đầu lọc dữ liệu (ISO 8601).  
+ *           Thời gian bắt đầu lọc dữ liệu (ISO 8601).
  *           Nếu chỉ có `from`, hệ thống sẽ lấy tất cả dữ liệu **từ thời điểm này trở về sau**.
  *       - in: query
  *         name: to
@@ -104,7 +104,7 @@
  *           format: date-time
  *           example: "2025-11-10T23:59:59Z"
  *         description: >
- *           Thời gian kết thúc lọc dữ liệu (ISO 8601).  
+ *           Thời gian kết thúc lọc dữ liệu (ISO 8601).
  *           Nếu chỉ có `to`, hệ thống sẽ lấy tất cả dữ liệu **đến thời điểm này trở về trước**.
  *     responses:
  *       200:
@@ -152,4 +152,92 @@
  *         description: Truy cập bị từ chối (token không hợp lệ hoặc hết hạn)
  *       500:
  *         description: Lỗi hệ thống
+ */
+
+/**
+ * @swagger
+ * /api/control/pump:
+ *   post:
+ *     summary: Điều khiển máy bơm (bật/tắt)
+ *     tags: [Telemetry]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - action
+ *             properties:
+ *               action:
+ *                 type: string
+ *                 enum: [on, off]
+ *                 example: "on"
+ *                 description: Hành động điều khiển máy bơm
+ *     responses:
+ *       200:
+ *         description: Điều khiển máy bơm thành công
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Pump turned on successfully"
+ *       400:
+ *         description: Tham số action không hợp lệ
+ *       403:
+ *         description: Truy cập bị từ chối (token không hợp lệ hoặc hết hạn)
+ *       500:
+ *         description: Lỗi hệ thống hoặc lỗi kết nối MQTT
+ */
+
+/**
+ * @swagger
+ * /api/control/led:
+ *   post:
+ *     summary: Điều khiển LED (bật/tắt)
+ *     tags: [Telemetry]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - action
+ *             properties:
+ *               action:
+ *                 type: string
+ *                 enum: [on, off]
+ *                 example: "on"
+ *                 description: Hành động điều khiển LED
+ *     responses:
+ *       200:
+ *         description: Điều khiển LED thành công
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "LED turned on successfully"
+ *       400:
+ *         description: Tham số action không hợp lệ
+ *       403:
+ *         description: Truy cập bị từ chối (token không hợp lệ hoặc hết hạn)
+ *       500:
+ *         description: Lỗi hệ thống hoặc lỗi kết nối MQTT
  */
