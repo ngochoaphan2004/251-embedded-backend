@@ -4,6 +4,7 @@ const authenticateToken = require('../config/authenticateToken');
 const { db, firestore } = require('../firebase/firebase');
 const { successResponse, errorResponse } = require('../asset/response');
 const serviceAccount = require('../firebase/serviceAccountKey.json');
+const cluster = require('../config/cluster_config');
 
 
 const isValidField = (field) => {
@@ -110,6 +111,44 @@ const telemetry = (app) => {
                 `Lỗi hệ thống: ${error.message || 'Không xác định'}`,
                 500
             );
+        }
+    });
+
+    // Control pump
+    app.post('/api/control/pump', authenticateToken, (req, res) => {
+        console.log(`[${new Date().toISOString()}] API /api/control/pump called with action: ${req.body.action}`);
+        try {
+            const { action } = req.body;
+            if (action === 'on') {
+                cluster.turnOnPump();
+                return successResponse(res, null, 'Pump turned on successfully');
+            } else if (action === 'off') {
+                cluster.turnOffPump();
+                return successResponse(res, null, 'Pump turned off successfully');
+            } else {
+                return errorResponse(res, 'Invalid action. Use "on" or "off"', 400);
+            }
+        } catch (error) {
+            return errorResponse(res, `Failed to control pump: ${error.message}`, 500);
+        }
+    });
+
+    // Control LED
+    app.post('/api/control/led', authenticateToken, (req, res) => {
+        console.log(`[${new Date().toISOString()}] API /api/control/led called with action: ${req.body.action}`);
+        try {
+            const { action } = req.body;
+            if (action === 'on') {
+                cluster.turnOnLed();
+                return successResponse(res, null, 'LED turned on successfully');
+            } else if (action === 'off') {
+                cluster.turnOffLed();
+                return successResponse(res, null, 'LED turned off successfully');
+            } else {
+                return errorResponse(res, 'Invalid action. Use "on" or "off"', 400);
+            }
+        } catch (error) {
+            return errorResponse(res, `Failed to control LED: ${error.message}`, 500);
         }
     });
 }
